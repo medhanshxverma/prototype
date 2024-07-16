@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Listing</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+    <h1>User Listing</h1>
+    
+    <div class="button-container">
+        <button id="inviteUserBtn" class="action-button">Invite User</button>
+        <button id="filterUserBtn" class="action-button">Filter Users</button>
+    </div> 
+
+    <!-- User Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th>Installation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody"></tbody>
+    </table>
+
+    <!-- Invite User Modal -->
+    <div id="inviteUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Invite User</h2>
+            <form id="inviteUserForm">
+                <label for="inviteEmail">Email:</label>
+                <input type="email" id="inviteEmail" required>
+                <label for="inviteFirstName">First Name:</label>
+                <input type="text" id="inviteFirstName" required>
+                <label for="inviteLastName">Last Name:</label>
+                <input type="text" id="inviteLastName" required>
+                <label for="inviteStatus">Status:</label>
+                <select id="inviteStatus" required>
+                    <option value="Active">Active</option>
+                    <option value="InActive">InActive</option>
+                </select>
+                <label for="inviteRole">Role:</label>
+                <select id="inviteRole" required>
+                    <option value="">Select a role</option>
+                    <option value="AMC/IMCOM">AMC/IMCOM</option>
+                    <option value="ARNG">ARNG</option>
+                    <option value="USAR">USAR</option>
+                </select>
+                <select id="inviteSubRole" required style="display: none;"></select>
+                <label for="inviteInstallation">Installation:</label>
+                <input type="text" id="inviteInstallation" required>
+                <button type="button" id="addInviteBtn" class="action-button">Invite</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <span id="editClose" class="close">&times;</span>
+            <h2>Edit User</h2>
+            <form id="editUserForm">
+                <input type="hidden" id="editEmail">
+                <label for="editFirstName">First Name:</label>
+                <input type="text" id="editFirstName" required>
+                <label for="editLastName">Last Name:</label>
+                <input type="text" id="editLastName" required>
+                <label for="editStatus">Status:</label>
+                <select id="editStatus" required>
+                    <option value="Active">Active</option>
+                    <option value="InActive">InActive</option>
+                </select>
+                <label for="editRole">Role:</label>
+                <select id="editRole" required>
+                    <option value="">Select a role</option>
+                    <option value="AMC/IMCOM">AMC/IMCOM</option>
+                    <option value="ARNG">ARNG</option>
+                    <option value="USAR">USAR</option>
+                </select>
+                <select id="editSubRole" required style="display: none;"></select>
+                <label for="editInstallation">Installation:</label>
+                <input type="text" id="editInstallation" required>
+                <button type="button" id="editSaveBtn" class="action-button">Save</button>
+                <button type="button" id="editCancelBtn" class="action-button">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Filter User Modal -->
+    <div id="filterUserModal" class="modal">
+        <div class="modal-content">
+            <span id="filterClose" class="close">&times;</span>
+            <h2>Filter Users</h2>
+            <form id="filterUserForm">
+                <label for="filterFirstName">First Name:</label>
+                <input type="text" id="filterFirstName">
+                <label for="filterLastName">Last Name:</label>
+                <input type="text" id="filterLastName">
+                <label for="filterStatus">Status:</label>
+                <select id="filterStatus">
+                    <option value="">Any</option>
+                    <option value="Active">Active</option>
+                    <option value="InActive">InActive</option>
+                </select>
+                <label for="filterRole">Role:</label>
+                <select id="filterRole" multiple>
+                    <option value="Web Administrator">Web Administrator</option>
+                    <option value="System Admin">System Admin</option>
+                    <option value="Survey Creator">Survey Creator</option>
+                    <option value="Survey Answerer">Survey Answerer</option>
+                    <option value="Survey First Level Approver">Survey First Level Approver</option>
+                    <option value="Survey Second Level Approver">Survey Second Level Approver</option>
+                    <option value="Survey Third Level Approver">Survey Third Level Approver</option>
+                    <option value="Survey Fourth Level Approver">Survey Fourth Level Approver</option>
+                    <option value="Survey Final Approver">Survey Final Approver</option>
+                    <option value="HQ Read Only">HQ Read Only</option>
+                    <option value="Accountable Org Read Only">Accountable Org Read Only</option>
+                </select>
+                <label for="filterInstallation">Installation:</label>
+                <input type="text" id="filterInstallation">
+                <button type="button" id="applyFilterBtn" class="action-button">Apply Filter</button>
+                <button type="button" id="resetFilterBtn" class="action-button">Reset Filter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Styles and Scripts -->
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#filterRole').select2({
+                placeholder: "Select roles",
+                allowClear: true
+            });
+        });
+    </script>
+
+</body>
+</html>
